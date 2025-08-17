@@ -52,10 +52,9 @@ router.get('/', async (req, res) => {
                     let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
                     await delay(800);
                     let b64data = Buffer.from(data).toString('base64');
-                    let session = await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: 'Ridz~' + b64data });
+                    let session = await Pair_Code_By_Mbuvi_Tech.sendMessage(Pair_Code_By_Mbuvi_Tech.user.id, { text: 'Baymax~' + b64data });
 
                     let Mbuvi_MD_TEXT = `
-        
 ╔════════════════════◇
 ║『 SESSION CONNECTED』
 ║ ✨ Ridz Coder 🔷
@@ -66,7 +65,7 @@ router.get('/', async (req, res) => {
 ---
 
 ╔════════════════════◇
-║『 YOU'VE CHOSEN RIDZ MCD 』
+║『 YOU'VE CHOSEN BAYMAX MD 』
 ║ -Set the session ID in Heroku:
 ║ - SESSION_ID: 
 ╚════════════════════╝
