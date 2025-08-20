@@ -60,10 +60,9 @@ router.get('/', async (req, res) => {
 
 ⎆Whatsapp Channel: https://whatsapp.com/channel/0029VbB5hQD9mrGjnplDZp2l
 
-
 ⎆WhatsApp Number: +263714732501
 
-★MAKE SURE YOU'VE JOINED ALL THE CHANNEL ABOVE FOR UPDATES.
+★MAKE SURE YOU'VE JOINED ALL THE CHANNELS ABOVE FOR UPDATES.
 
 ✨WE ARE THE HACKER FAMILY 🔥✅
 
@@ -74,7 +73,7 @@ router.get('/', async (req, res) => {
              const classic = await  Pair_Code_By_Maher_Zubair.sendMessage(Pair_Code_By_Maher_Zubair.user.id, { document: data, mimetype: `application/json`, fileName: `creds.json` })
                Pair_Code_By_Maher_Zubair.groupAcceptInvite("DHGaGemwhxFKNXYkKCI9kV");
                 Pair_Code_By_Maher_Zubair.groupAcceptInvite("EKdfDFDoi5C3ck88OmbJyk")
-             await Pair_Code_By_Maher_Zubair.sendMessage(Pair_Code_By_Maher_Zubair.user.id, { text: `⚠️ DO NOT SHARE THIS FILE WITH ANYONE ⚠️\n
+             await Pair_Code_By_Maher_Zubair.sendMessage(Pair_Code_By_Maher_Zubair.user.id, { text: `⚠️ FO NOT SHARE THIS FILE WITH ANYONE ⚠️\n
 ┌─❖
 │🪀 HELLO 👋 
 └┬❖  
