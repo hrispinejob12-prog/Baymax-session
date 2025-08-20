@@ -5,311 +5,311 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BAYMAX MD pairing site Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    :root {
-      --primary: linear-gradient(135deg, #FF4500, #228B22);
-      --bg: #D2691E;
-      --glass: rgba(255, 255, 255, 0.05);
-      --text: #ffffff;
-      --muted: #708090;
-      --highlight: #FF1493;
-      --radius: 16px;
-      --blur: 12px;
-      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --glow: 0 0 15px rgba(0, 212, 255, 0.3);
-    }
+  <style>
+ :root {
+  --primary: linear-gradient(135deg, #FF4500, #228B22);
+  --bg: #D2691E;
+  --glass: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --muted: #708090;
+  --highlight: #FF1493;
+  --radius: 16px;
+  --blur: 12px;
+  --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --glow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow-x: hidden;
-      color: var(--text);
-      padding: 80px 20px 120px; /* Space for header and music player */
-    }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--text);
+  padding: 80px 20px 120px; /* Space for header and music player */
+}
 
-    /* Background with blur effect */
-    .background-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -3;
-      filter: blur(8px) brightness(0.6);
-      transform: scale(1.1);
-    }
+/* Background with blur effect */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: blur(8px) brightness(0.6);
+  transform: scale(1.1);
+}
 
-    /* Header with logo */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
+/* Header with logo */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-    .logo-img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(0, 212, 255, 0.3);
-      box-shadow: var(--glow);
-    }
+.logo-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  box-shadow: var(--glow);
+}
 
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: var(--primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: var(--glow);
-    }
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow);
+}
 
-    /* Battery indicator */
-    .battery-container {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 50px;
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 0.9rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+/* Battery indicator */
+.battery-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    .battery-icon {
-      color: var(--highlight);
-      font-size: 1.2rem;
-    }
+.battery-icon {
+  color: var(--highlight);
+  font-size: 1.2rem;
+}
 
-    /* Main container */
-    .main-content {
-      width: 100%;
-      max-width: 500px;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: relative;
-      z-index: 1;
-    }
+/* Main container */
+.main-content {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
 
-    /* Pairing box */
-    .box {
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      border-radius: var(--radius);
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: var(--transition);
-    }
+/* Pairing box */
+.box {
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
 
-    .box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), var(--glow);
-    }
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), var(--glow);
+}
 
-    .box h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      background: var(--primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: var(--glow);
-    }
+.box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  background: var(--primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow);
+}
 
-    .box h5 {
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      font-weight: normal;
-    }
+.box h5 {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+}
 
-    /* Input styling */
-    .input-container {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
+/* Input styling */
+.input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
 
-    .input-container input {
-      flex: 1;
-      padding: 1rem;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--text);
-      font-family: inherit;
-      transition: var(--transition);
-    }
+.input-container input {
+  flex: 1;
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text);
+  font-family: inherit;
+  transition: var(--transition);
+}
 
-    .input-container input:focus {
-      outline: none;
-      border-color: var(--highlight);
-      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
-    }
+.input-container input:focus {
+  outline: none;
+  border-color: var(--highlight);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+}
 
-    .input-container button {
-      padding: 1rem 1.5rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
+.input-container button {
+  padding: 1rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
 
-    .input-container button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
+.input-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
 
-    /* Result display */
-    #pair-result {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: var(--radius);
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* Result display */
+#pair-result {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    #copy-code {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--highlight);
-      padding: 0.6rem 1.2rem;
-      border-radius: 50px;
-      color: white;
-      cursor: pointer;
-      font-weight: 600;
-      transition: var(--transition);
-      margin-top: 1rem;
-      display: none;
-    }
+#copy-code {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--highlight);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  margin-top: 1rem;
+  display: none;
+}
 
-    #copy-code:hover {
-      background: rgba(0, 212, 255, 0.1);
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-    }
+#copy-code:hover {
+  background: rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
 
-    /* Music player - Positioned below pairing container */
-    .music-player {
-      width: 100%;
-      max-width: 500px;
-      background: var(--glass);
-      backdrop-filter: blur(var(--blur));
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 90;
-      text-align: center;
-      margin-top: 2rem;
-    }
+/* Music player - Positioned below pairing container */
+.music-player {
+  width: 100%;
+  max-width: 500px;
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 90;
+  text-align: center;
+  margin-top: 2rem;
+}
 
-    .music-player h3 {
-      color: var(--highlight);
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
+.music-player h3 {
+  color: var(--highlight);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
 
-    .music-title {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-    }
+.music-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
 
-    .music-subtitle {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
+.music-subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
 
-    .play-btn {
-      background: var(--primary);
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: var(--transition);
-    }
+.play-btn {
+  background: var(--primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
 
-    .play-btn:hover {
-      transform: scale(1.1);
-    }
+.play-btn:hover {
+  transform: scale(1.1);
+}
 
-    .play-btn i {
-      color: white;
-      font-size: 1.5rem;
-    }
+.play-btn i {
+  color: white;
+  font-size: 1.5rem;
+}
 
-    .time-display {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
+.time-display {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .header {
-        padding: 0.8rem 1rem;
-      }
-      
-      .logo-text {
-        font-size: 1.2rem;
-      }
-      
-      body {
-        padding: 70px 15px 100px;
-      }
-      
-      .input-container {
-        flex-direction: column;
-      }
-      
-      .input-container button {
-        width: 100%;
-      }
-      
-      .music-player {
-        padding: 1rem;
-      }
-    }
+/* Responsive design */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.8rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+  }
+
+  body {
+    padding: 70px 15px 100px;
+  }
+
+  .input-container {
+    flex-direction: column;
+  }
+
+  .input-container button {
+    width: 100%;
+  }
+
+  .music-player {
+    padding: 1rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -322,8 +322,6 @@
       <img src="https://i.ibb.co/mWtJPyP/file-0000000039a461f7940ebd4ffe7226ef.png" alt="BAYMAX MD⃟ " class="logo-img">
       <div class="logo-text">𝐒𝐢𝐧𝐜𝐞-𝟐𝟎𝟐4</div>
     </div>
-    
-    <!-- Battery Indicator -->
     <div class="battery-container">
       <i class="fas fa-battery-full battery-icon" id="battery-icon"></i>
       <span id="battery-level">--%</span>
@@ -333,24 +331,19 @@
   <!-- Main Content Container -->
   <div class="main-content">
     <!-- Pairing Box -->
-    <div class="box">
+    <div class="box" id="pair-box">
       <h2>PAIRING CODE</h2>
       <h5>BAYMAX MD</h5>
       <p>Please enter your number without country code</p>
-      
       <div class="input-container">
-        <input type="number" id="number" placeholder="put you number" required>
+        <input type="number" id="number" placeholder="put your number" required>
         <button id="submit">REQUEST CODE</button>
       </div>
-      
-      <div id="pair-result">
-        <p id="waiting-message" style="display: none;">Please wait...</p>
-      </div>
-      
-      <button id="copy-code" onclick="copyCode()">COPY YOUR CODE</button>
+      <div id="pair-result"></div>
+      <button id="copy-code" onclick="copyCode()" style="display: none;">COPY YOUR CODE</button>
     </div>
 
-    <!-- Music Player - Positioned below pairing container -->
+    <!-- Music Player -->
     <div class="music-player">
       <h3>PLAY NOW</h3>
       <div class="music-title">PLAY SONG</div>
@@ -360,7 +353,8 @@
       </button>
       <div class="time-display" id="time1">0:00</div>
       <div class="music-subtitle">Dyana cods</div>
-      <audio id="audio1" src="https://i.ibb.co/mWtJPyP/file-0000000039a461f7940ebd4ffe7226ef.png" loop></audio>
+      <!-- Replace the src below with a real audio file for a working player -->
+      <audio id="audio1" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
     </div>
   </div>
 
@@ -371,73 +365,66 @@
     const submitBtn = document.getElementById("submit");
     const numberInput = document.getElementById("number");
     const copyCodeBtn = document.getElementById("copy-code");
-    const waitingMessage = document.getElementById("waiting-message");
     const batteryLevel = document.getElementById("battery-level");
     const batteryIcon = document.getElementById("battery-icon");
 
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
-    let box = document.getElementById("box");
+    let lastCode = "";
 
-    async function Copy() {
-      let text = document.getElementById("copy").innerText;
-      let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "COPIED";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
-      setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
-        obj.size = "5";
-      }, 500);
+    async function copyCode() {
+      if (lastCode) {
+        await navigator.clipboard.writeText(lastCode);
+        copyCodeBtn.innerText = "COPIED!";
+        setTimeout(() => {
+          copyCodeBtn.innerText = "COPY YOUR CODE";
+        }, 1000);
+      }
     }
 
-    b.addEventListener("click", async (e) => {
+    submitBtn.addEventListener("click", async (e) => {
       e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<a style="color:white;font-weight:bold">Enter your WhatsApp number with a country code</a><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:red;font-weight:bold">Invalid number</a><br><br>';
-      } else {
-        const Maher_Zubair = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = Maher_Zubair.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
-        });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:black;font-size:20px";
-        a.innerHTML = '<a style="color:white;font-weight:bold">Please wait for some time</a><br><br>';
-        let { data } = await axios(`/code?number=${Ridz}`);
+      const inputValue = numberInput.value.replace(/[^0-9]/g, "");
+      if (!inputValue) {
+        pairResult.innerHTML = '<span style="color:white;font-weight:bold">Enter your WhatsApp number without country code</span>';
+        copyCodeBtn.style.display = "none";
+        lastCode = "";
+        return;
+      }
+      if (inputValue.length < 8) { // Adjust min length as needed
+        pairResult.innerHTML = '<span style="color:red;font-weight:bold">Invalid number</span>';
+        copyCodeBtn.style.display = "none";
+        lastCode = "";
+        return;
+      }
+
+      pairResult.innerHTML = '<span style="color:white;font-weight:bold">Please wait for some time...</span>';
+      copyCodeBtn.style.display = "none";
+      lastCode = "";
+
+      try {
+        // Replace with your real API endpoint for pairing code
+        let { data } = await axios(`/code?number=${inputValue}`);
         let code = data.code || "Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">' + code + '</span></font><br><br><br>';
+        lastCode = code;
+        pairResult.innerHTML = `<span style="color:red;font-weight:bold">CODE: <span style="color:white;font-weight:bold">${code}</span></span>`;
+        copyCodeBtn.style.display = "inline-block";
+      } catch (err) {
+        pairResult.innerHTML = '<span style="color:red;font-weight:bold">Failed to fetch code. Try again later.</span>';
+        copyCodeBtn.style.display = "none";
+        lastCode = "";
       }
     });
 
     // Music player controls
     const audio = document.getElementById('audio1');
-    const playBtn = document.querySelector('.play-btn');
     const playIcon = document.getElementById('play-icon');
     const timeDisplay = document.getElementById('time1');
-    
-    // Auto-play music when page loads (with user interaction)
+
     document.addEventListener('click', function initAudio() {
       audio.play().then(() => {
         playIcon.classList.replace('fa-play', 'fa-pause');
         updateTimeDisplay();
       }).catch(error => {
-        console.log('Auto-play prevented:', error);
+        // Auto-play prevented by browser
       });
       document.removeEventListener('click', initAudio);
     }, { once: true });
@@ -456,12 +443,10 @@
       const minutes = Math.floor(audio.currentTime / 60);
       const seconds = Math.floor(audio.currentTime % 60);
       timeDisplay.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
-      
       if (!audio.paused) {
         requestAnimationFrame(updateTimeDisplay);
       }
     }
-
     audio.addEventListener('timeupdate', updateTimeDisplay);
 
     // Battery status indicator
@@ -469,19 +454,14 @@
       if (navigator.getBattery) {
         try {
           const battery = await navigator.getBattery();
-          
           const updateBatteryUI = () => {
             const batteryPercent = Math.round(battery.level * 100);
             batteryLevel.textContent = `${batteryPercent}%`;
-            
-            // Update battery icon based on level
             let iconClass = 'fa-battery-empty';
             if (batteryPercent > 80) iconClass = 'fa-battery-full';
             else if (batteryPercent > 60) iconClass = 'fa-battery-three-quarters';
             else if (batteryPercent > 40) iconClass = 'fa-battery-half';
             else if (batteryPercent > 20) iconClass = 'fa-battery-quarter';
-            
-            // Add charging bolt if charging
             if (battery.charging) {
               batteryIcon.className = `fas fa-bolt ${iconClass}`;
               batteryIcon.style.color = '#00ff00';
@@ -490,24 +470,20 @@
               batteryIcon.style.color = 'var(--highlight)';
             }
           };
-          
           battery.addEventListener('levelchange', updateBatteryUI);
           battery.addEventListener('chargingchange', updateBatteryUI);
           updateBatteryUI();
         } catch (error) {
-          console.error('Battery API error:', error);
+          batteryLevel.textContent = "N/A";
         }
       } else {
         batteryLevel.textContent = "N/A";
       }
     }
 
-    // Initialize
     window.addEventListener('load', () => {
       copyCodeBtn.style.display = "none";
       updateBattery();
-      
-      // Smooth page load
       document.body.style.opacity = '0';
       setTimeout(() => {
         document.body.style.transition = 'opacity 0.5s ease';
@@ -516,4 +492,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
