@@ -1,6 +1,9 @@
 ## BAYMAX MD⃟ - Session ID Generator
 
-A simple and secure Session ID Generator built for BAYMAX MD⃟ WhatsApp Multi-Device Bot.
+A simple and secure Session ID Generator built for BAYMAX MD⃟ 
+
+WhatsApp Multi-Device Bot.
+
 This tool allows you to quickly generate a valid session ID required to authenticate and connect BAYMAX MD⃟ to your WhatsApp account.
 
 
