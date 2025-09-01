@@ -8,7 +8,34 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-   .cyber-grid::before {
+   
+     *{ margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0d0d0d;
+      color: #00ffcc;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Live Cyber-Grid Background */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+
+       .cyber-grid::before {
   content: "";
   position: absolute;
   top: 0;
@@ -37,58 +64,6 @@
   animation: gridMove 20s linear infinite;
   z-index: -1;
 }
-     *{ margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #0d0d0d;
-      color: #00ffcc;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Live Cyber-Grid Background */
-    .cyber-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: #0d0d0d;
-      overflow: hidden;
-    }
-
-    .cyber-grid::before,
-    .cyber-grid::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 50px,
-        rgba(0, 255, 204, 0.1) 50px,
-        rgba(0, 255, 204, 0.1) 52px
-      );
-      animation: gridMove 20s linear infinite;
-    }
-
-    .cyber-grid::after {
-      background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 50px,
-        rgba(0, 255, 204, 0.1) 50px,
-        rgba(0, 255, 204, 0.1) 52px
-      );
-    }
-
     @keyframes gridMove {
       0% { transform: translateY(0); }
       100% { transform: translateY(-100px); }
