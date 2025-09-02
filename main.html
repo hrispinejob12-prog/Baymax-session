@@ -1,503 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BAYMAX MD SESSION</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knight Bot - WhatsApp Linker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-   
-     *{ margin: 0;
+    :root {
+      --primary-color: #000000;
+      --secondary-color: #ffffff;
+      --accent-color: #f0f0f0;
+      --text-color: #000000;
+      --background-color: #ffffff;
+      --hover-color: #f5f5f5;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
-      background: #0d0d0d;
-      color: #00ffcc;
+      font-family: 'Inter', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
       min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Live Cyber-Grid Background */
-    .cyber-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: #0d0d0d;
-      overflow: hidden;
-    }
-
-       .cyber-grid::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("https://picsum.photos/1920/1080") no-repeat center center/cover;
-  filter: blur(12px);
-  transform: scale(1.1); /* Prevents visible edges when blurred */
-  z-index: -2;
-}
-
-/* Keep your existing grid lines effect above the image */
-.cyber-grid::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 50px,
-    rgba(0, 255, 204, 0.1) 50px,
-    rgba(0, 255, 204, 0.1) 52px
-  );
-  animation: gridMove 20s linear infinite;
-  z-index: -1;
-}
-    @keyframes gridMove {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-100px); }
-    }
-
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 40px;
-      position: relative;
-      z-index: 1;
-      margin-top: 60px; /* Space for fixed ticker */
+      padding: 15px;
     }
 
-    /* News Ticker */
-    .news-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      font-family: 'Orbitron', sans-serif;
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: var(--background-color);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-color);
     }
 
-    .news-container .title {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 40%;
-      background: linear-gradient(90deg, #ff2e63, #7209b7);
-      padding: 10px 24px;
-      color: #fff;
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-size: 24px;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      z-index: 1001;
+      margin-bottom: 8px;
+      color: var(--primary-color);
     }
 
-    .news-container .ticker {
-      width: 100%;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-      margin-left: 40%; /* Align ticker content to right of title */
-    }
-
-    .news-container ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 10px 0;
-      animation: scroll 20s infinite linear;
-    }
-
-    .news-container ul li {
-      white-space: nowrap;
-      padding: 0 24px;
-      color: #00ffcc;
-      font-size: 1rem;
-      text-shadow: 0 0 5px #00ffcc;
-      position: relative;
-    }
-
-    .news-container ul li::after {
-      content: "";
-      width: 1px;
-      height: 100%;
-      background: #00ffcc;
-      position: absolute;
-      top: 0;
-      right: 0;
-      opacity: 0.5;
-    }
-
-    .news-container ul li:last-child::after {
-      display: none;
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(100%); }
-      to { transform: translateX(-100%); }
-    }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00ffcc;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-    }
-
-    .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      color: #ff2e63;
-      text-shadow: 0 0 10px #ff2e63;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #00ffcc;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Features Section */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      width: 100%;
-    }
-
-    .feature-card {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #00ffcc;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-    }
-
-    .feature-card h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
-      color: #ff2e63;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      font-size: 1rem;
-      color: #00ffcc;
-      flex-grow: 1;
-    }
-
-    .feature-card .btn {
-      width: 100%;
-      padding: 0.8em;
-      font-size: 1rem;
-    }
-
-    /* About Section */
-    .about {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #00ffcc;
-      border-radius: 8px;
-      padding: 30px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .about h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      color: #ff2e63;
-      margin-bottom: 15px;
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      color: #00ffcc;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Contact Section */
-    .contact {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #00ffcc;
-      border-radius: 8px;
-      padding: 30px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .contact h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      color: #ff2e63;
-      margin-bottom: 15px;
-    }
-
-    .contact p {
-      font-size: 1.1rem;
-      color: #00ffcc;
+    .subtitle {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.7);
       margin-bottom: 20px;
     }
 
-    /* Buttons */
-    .btn {
-      background: transparent;
-      border: 2px solid #00ffcc;
-      border-radius: 8px;
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .social-icons a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a.youtube { background: #FF0000; }
+    .social-icons a.telegram { background: #0088cc; }
+    .social-icons a.whatsapp { background: #0cfa10; }
+    .social-icons a.github { background: #333; }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Toggle Switch Styles */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: var(--hover-color);
+      border-radius: 12px;
+      padding: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .toggle-option {
+      flex: 1;
+      padding: 10px 16px;
+      text-align: center;
       cursor: pointer;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      color: #00ffcc;
-      text-shadow: 0 0 5px #00ffcc;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
       transition: all 0.3s ease;
       position: relative;
-      overflow: hidden;
     }
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    .toggle-option.active {
+      background: var(--primary-color);
+      color: var(--secondary-color);
+    }
+
+    .toggle-option:not(.active) {
+      color: var(--text-color);
+    }
+
+    .toggle-option:hover:not(.active) {
+      background: var(--background-color);
+    }
+    .copy-btn {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.3), transparent);
-      transition: all 0.5s ease;
-      z-index: -1;
+      padding: 12px;
+      background: var(--hover-color);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .btn:hover::before {
-      left: 100%;
+    .copy-btn:hover {
+      background: var(--background-color);
+      border-color: var(--primary-color);
     }
 
-    .btn:hover {
-      background: rgba(0, 255, 204, 0.2);
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-      color: #fff;
-      border-color: #fff;
-    }
-
-    .btn:active {
-      transform: scale(0.95);
-      filter: brightness(0.8);
-    }
-
-    /* Footer */
-    .footer {
-      margin-top: 40px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #00ffcc;
-      border-radius: 8px;
-      text-align: center;
-      color: #00ffcc;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-      text-shadow: 0 0 5px #00ffcc;
-      width: 100%;
-    }
-
-    .footer b {
-      color: #ff2e63;
-    }
-
-    .footer .social-links {
-      margin-top: 15px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .footer .social-links a {
-      color: #00ffcc;
-      font-size: 1.5rem;
+    .input-group {
+      margin-bottom: 20px;
       transition: all 0.3s ease;
     }
 
-    .footer .social-links a:hover {
-      color: #ff2e63;
-      text-shadow: 0 0 10px #ff2e63;
+    .input-group.hidden {
+      display: none;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--background-color);
+      color: var(--text-color);
+      font-size: 15px;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .generate-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 12px;
+      color: var(--secondary-color);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .generate-btn.hidden {
+      display: none;
+    }
+
+    .code-display {
+      background: var(--hover-color);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border-color);
+    }
+
+    .qr-display {
+      background: var(--hover-color);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 16px;
+      border: 1.5px solid var(--border-color);
+      display: none;
+    }
+
+    .qr-image {
+      max-width: 280px;
+      max-height: 280px;
+      margin: 0 auto 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .qr-instructions {
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 1.5;
+    }
+
+    .success-message {
+      color: #000aff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .loading i {
+      font-size: 24px;
+      color: var(--primary-color);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 480px) {
       .container {
-        padding: 10px 10px; /* Add left/right spacing for boxes */
-        margin-top: 80px; /* Adjust for mobile ticker */
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 400px;
       }
 
-      .news-container .title {
-        width: 50%;
-        font-size: 0.7rem; /* Smaller font for one line */
-        padding: 8px 15px;
+      .code-display {
+        font-size: 16px;
+        min-height: 50px;
       }
 
-      .news-container .ticker {
-        margin-left: 50%;
+      .qr-image {
+        max-width: 240px;
+        max-height: 240px;
       }
 
-      .news-container ul li {
-        font-size: 0.8rem;
-        padding: 8px 15px;
-      }
-
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .feature-card h3 {
-        font-size: 1.3rem;
-      }
-
-      .about h2,
-      .contact h2 {
-        font-size: 1.5rem;
-      }
-
-      .about p,
-      .contact p {
-        font-size: 1rem;
-      }
-
-      .feature-card .btn {
-        font-size: 0.9rem;
-        padding: 0.6em;
-      }
-
-      .footer .social-links {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+      .qr-display {
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="cyber-grid"></div>
-  <div class="news-container">
-    <div class="title">Hello Tech Enthusiast</div>
-    <div class="ticker">
-      <ul>
-        <li>welcome to Baymax MD sessions!</li>
-        <li>Here you will get session ids for your Baymax MD</li>
-        <li>Jinx MXD</li>
-      </ul>
-    </div>
-  </div>
-
   <div class="container">
-    <!-- Hero Section -->
-    <div class="hero">
-      <h1>Welcome to our session Centre</h1>
-      <p>Your one-stop hub for WhatsApp bot sessions. Get your QR or pair code, deploy BAYMAX MD, and join the tech revolution!</p>
-    </div>
-
-    <!-- Features Section -->
-    <div class="features">
-      <div class="feature-card">
-        <h3>QR Code Pairing</h3>
-        <p>Scan a QR code to instantly connect your WhatsApp bot with a secure session ID.</p>
-        <button onclick="window.location.href='/qr'" class="btn">Get QR Code</button>
-      </div>
-      <div class="feature-card">
-        <h3>Pair Code</h3>
-        <p>Enter a phone number and get a code to pair your bot without scanning.</p>
-        <button onclick="window.location.href='/pair'" class="btn">Get Pair Code</button>
-      </div>
-      <div class="feature-card">
-        <h3>Deploy BAYMAX MD</h3>
-        <p>Deploy your own bot for free here.</p>
-        <button onclick="window.location.href='https://deploy-ridzcoder.kesug.com/'" class="btn">Deploy Now</button>
+    <div class="header">
+      <div class="logo"><i class="fas fa-robot"></i></div>
+      <h1 class="title">Knight Bot</h1>
+      <p class="subtitle">Link your WhatsApp device</p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@mr_unique_hacker?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me/+hxojkc7kaVViYzdl" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://github.com/mruniquehacker/Knightbot-md" target="_blank" class="github"><i class="fab fa-github"></i></a>
       </div>
     </div>
 
-    <!-- About Section -->
-    <div class="about">
-      <h2>About Us</h2>
-      <p>We’re a crew of tech enthusiasts building tools for WhatsApp bot creators. Our mission? Make bot setup fast, secure, and awesome. Join the Ridz Tech Inc community!</p>
+    <!-- Toggle Switch -->
+    <div class="toggle-container">
+      <div class="toggle-option active" data-mode="pair">
+        <i class="fas fa-key"></i> Pair Code
+      </div>
+      <div class="toggle-option" data-mode="qr">
+        <i class="fas fa-qrcode"></i> QR Code
+      </div>
     </div>
 
-    <!-- Contact Section -->
-    <div class="contact">
-      <h2>Get in Touch</h2>
-      <p>Hit us up on SMS, WhatsApp, or Telegram for support, collabs, or just to talk tech.</p>
-      <!-- GetButton.io widget will appear here -->
+    <div class="input-group" id="inputGroup">
+      <label class="input-label">Enter your WhatsApp number with country code</label>
+      <input type="text" id="mobileNumber" class="input-field" placeholder="+917023951514" pattern="[+][0-9]{10,}" title="Please enter country code starting with + followed by number">
+    </div>
+
+    <button class="generate-btn" id="submit">
+      <i class="fas fa-key"></i> Generate Pair Code
+    </button>
+
+    <div class="loading" id="loading">
+      <i class="fas fa-spinner"></i>
+    </div>
+
+    <div class="code-display" id="codeDisplay">
+      Your pair code will appear here
+    </div>
+
+    <div class="qr-display" id="qrDisplay">
+      <img id="qrImage" class="qr-image" src="" alt="QR Code">
+      <div class="qr-instructions" id="qrInstructions">
+        Scan this QR code with your WhatsApp app
+      </div>
+    </div>
+
+    <button class="copy-btn" id="copy" onclick="copyCode()">
+      <i class="fas fa-copy"></i> Copy Code
+    </button>
+
+    <div class="footer">
+      <p>© 2025 Mr Unique Hacker | Knight Bot</p>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p>©Ridz Coder</p>
-    <p>Contact <b>Ridz Coder</b></p>
-    <div class="social-links">
-      <a href="https://youtube.com/@ridz_coder01" target="_blank"><i class="fab fa-youtube"></i></a>
-      <a href="https://www.instagram.com/ridz_coder01" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://t.me/ridz_coder01" target="_blank"><i class="fab fa-telegram"></i></a>
-      <a href="https://github.com/Dev-Ridz" target="_blank"><i class="fab fa-github"></i></a>
-    </div>
-  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let currentMode = 'pair';
 
-  <!-- GetButton.io widget -->
-  <script type="text/javascript">
-    (function () {
-      var options = {
-        sms: "+254787909276",
-        sms_color: "#129BF4",
-        whatsapp: "+254756182478",
-        telegram: "@giddy_tennor",
-        call_to_action: "Message us",
-        button_color: "#FF318E",
-        position: "left",
-        order: "sms,whatsapp,telegram",
-        pre_filled_message: "hey Giddy Tennor i have come with greetings from your session",
-      };
-      var proto = 'https:', host = "getbutton.io", url = proto + '//static.' + host;
-      var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-      s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-      var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-    })();
+    // Toggle functionality
+    document.querySelectorAll('.toggle-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const mode = this.dataset.mode;
+        if (mode === currentMode) return;
+
+        // Update active state
+        document.querySelectorAll('.toggle-option').forEach(opt => opt.classList.remove('active'));
+        this.classList.add('active');
+
+        // Update mode
+        currentMode = mode;
+
+        // Update button and input visibility
+        const submitBtn = document.getElementById('submit');
+        const inputGroup = document.getElementById('inputGroup');
+
+        if (mode === 'pair') {
+          submitBtn.innerHTML = '<i class="fas fa-key"></i> Generate Pair Code';
+          submitBtn.classList.remove('hidden');
+          inputGroup.classList.remove('hidden');
+        } else {
+          submitBtn.classList.add('hidden');
+          inputGroup.classList.add('hidden');
+          // Auto-generate QR code when QR mode is selected
+          generateQRCode();
+        }
+
+        // Clear displays
+        document.getElementById('codeDisplay').innerHTML = 'Your pair code will appear here';
+        document.getElementById('qrDisplay').style.display = 'none';
+        document.getElementById('codeDisplay').style.display = 'flex';
+      });
+    });
+
+    async function generateQRCode() {
+      const codeDisplay = document.getElementById("codeDisplay");
+      const qrDisplay = document.getElementById("qrDisplay");
+      const loadingSpinner = document.getElementById("loading");
+
+      loadingSpinner.style.display = "block";
+      codeDisplay.innerHTML = '';
+      qrDisplay.style.display = 'none';
+
+      try {
+        const response = await axios('/qr');
+
+        if (response.data.qr) {
+          document.getElementById('qrImage').src = response.data.qr;
+          document.getElementById('qrInstructions').innerHTML = response.data.instructions.join('<br>');
+          qrDisplay.style.display = 'block';
+          codeDisplay.style.display = 'none';
+        } else {
+          codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to generate QR code</div>';
+          codeDisplay.style.display = 'flex';
+        }
+      } catch (error) {
+        console.error("Error generating QR code:", error);
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating QR code. Please try again.</div>';
+        codeDisplay.style.display = 'flex';
+      } finally {
+        loadingSpinner.style.display = "none";
+      }
+    }
+
+    document.getElementById("submit").addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const mobileNumberInput = document.getElementById("mobileNumber");
+      const codeDisplay = document.getElementById("codeDisplay");
+      const qrDisplay = document.getElementById("qrDisplay");
+      const loadingSpinner = document.getElementById("loading");
+
+      const mobileNumber = mobileNumberInput.value.trim();
+      if (!mobileNumber) {
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
+        return;
+      }
+
+      loadingSpinner.style.display = "block";
+      codeDisplay.innerHTML = '';
+      qrDisplay.style.display = 'none';
+
+      try {
+        const response = await axios(`/pair?number=${mobileNumber.replace(/[^0-9]/g, "")}`);
+
+        const code = response.data.code || "Service Unavailable";
+        if (code === "Service Unavailable") {
+          codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
+        } else {
+          codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
+        }
+        codeDisplay.style.display = 'flex';
+      } catch (error) {
+        console.error("Error generating code:", error);
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
+        codeDisplay.style.display = 'flex';
+      } finally {
+        loadingSpinner.style.display = "none";
+      }
+    });
+    function copyCode() {
+      const codeDisplay = document.getElementById("codeDisplay").innerText;
+      const code = codeDisplay.replace('CODE: ', '');
+      navigator.clipboard.writeText(code).then(() => {
+        const copyBtn = document.getElementById("copy");
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    }
   </script>
-  <!-- /GetButton.io widget -->
 </body>
 </html>
