@@ -6,7 +6,7 @@
   <title>Baymax MD - WhatsApp Linker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-    :root {
+   :root {
   --primary-color: #0ff;        /* Neon Cyan */
   --secondary-color: #ff00ff;   /* Neon Magenta */
   --accent-color: #00ff99;      /* Neon Green */
@@ -25,9 +25,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(120deg, #0a0a0a, #111, #0a0a0a);
-  background-size: 400% 400%;
-  animation: bgGradient 10s ease infinite;
+  background: var(--background-color);
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
@@ -36,29 +34,14 @@ body {
   padding: 15px;
 }
 
-/* Neon gradient background animation */
-@keyframes bgGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Neon Pulse Animation */
-@keyframes neonPulse {
-  0% { box-shadow: 0 0 5px #0ff, 0 0 10px #ff00ff, 0 0 20px #00ff99; }
-  50% { box-shadow: 0 0 15px #0ff, 0 0 30px #ff00ff, 0 0 40px #00ff99; }
-  100% { box-shadow: 0 0 5px #0ff, 0 0 10px #ff00ff, 0 0 20px #00ff99; }
-}
-
 .container {
   width: 100%;
   max-width: 450px;
-  background: #111;
+  background: #111; /* slightly lighter dark for contrast */
   border-radius: 16px;
   padding: 25px;
+  box-shadow: 0 0 20px var(--glow-color);
   border: 1px solid var(--border-color);
-  box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--secondary-color);
-  animation: neonPulse 2s infinite alternate;
 }
 
 .header {
@@ -78,18 +61,14 @@ body {
   font-size: 28px;
   color: #0a0a0a;
   box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
-  animation: neonPulse 2s infinite alternate;
 }
 
 .title {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 8px;
-  background: linear-gradient(45deg, #0ff, #ff00ff, #00ff99);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: neonPulse 2s infinite alternate;
-  text-shadow: 0 0 8px #0ff, 0 0 16px #ff00ff, 0 0 24px #00ff99;
+  color: var(--primary-color);
+  text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
 }
 
 .subtitle {
@@ -116,14 +95,13 @@ body {
   font-size: 18px;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
-  animation: neonPulse 2.5s infinite alternate;
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
-.social-icons a.youtube { background: #ff0044; box-shadow: 0 0 8px #ff0044, 0 0 16px #ff00ff; }
-.social-icons a.telegram { background: #00ccff; box-shadow: 0 0 8px #00ccff, 0 0 16px #0ff; }
-.social-icons a.whatsapp { background: #00ff99; box-shadow: 0 0 8px #00ff99, 0 0 16px #0ff; }
-.social-icons a.github { background: #888; box-shadow: 0 0 8px #888, 0 0 16px #fff; }
+.social-icons a.youtube { background: #ff0044; box-shadow: 0 0 8px #ff0044; }
+.social-icons a.telegram { background: #00ccff; box-shadow: 0 0 8px #00ccff; }
+.social-icons a.whatsapp { background: #00ff99; box-shadow: 0 0 8px #00ff99; }
+.social-icons a.github { background: #888; box-shadow: 0 0 8px #888; }
 
 .social-icons a:hover {
   transform: scale(1.2);
@@ -177,18 +155,16 @@ body {
   background: #111;
   color: var(--primary-color);
   text-shadow: 0 0 5px var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+  box-shadow: 0 0 8px var(--primary-color);
   transition: all 0.3s ease;
-  animation: neonPulse 2s infinite alternate;
 }
 
 .copy-btn:hover, .generate-btn:hover {
   background: #000;
   border-color: var(--secondary-color);
-  box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
+  box-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--secondary-color);
 }
 
-/* Input fields */
 .input-field {
   width: 100%;
   padding: 12px;
@@ -198,16 +174,15 @@ body {
   color: var(--text-color);
   font-size: 15px;
   box-shadow: 0 0 8px rgba(0,255,255,0.3);
-  transition: all 0.3s ease;
 }
 
 .input-field:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color), 0 0 30px var(--accent-color);
+  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
 }
 
-/* Code and QR Display */
+/* Code Display */
 .code-display, .qr-display {
   background: #111;
   padding: 12px;
@@ -218,19 +193,9 @@ body {
   font-weight: 600;
   color: var(--primary-color);
   box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-  animation: neonPulse 2s infinite alternate;
 }
 
-/* QR Image */
-.qr-image {
-  max-width: 280px;
-  max-height: 280px;
-  margin: 0 auto 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
-}
-
-/* Loading Spinner */
+/* Animations */
 .loading i {
   font-size: 24px;
   color: var(--primary-color);
@@ -238,38 +203,11 @@ body {
   text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .footer {
   text-align: center;
   margin-top: 20px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 400px;
-  }
-
-  .code-display {
-    font-size: 16px;
-    min-height: 50px;
-  }
-
-  .qr-image {
-    max-width: 240px;
-    max-height: 240px;
-  }
-
-  .qr-display {
-    padding: 20px;
-  }
 }
   </style>
 </head>
