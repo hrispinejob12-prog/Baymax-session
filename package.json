@@ -1,11 +1,11 @@
 {
-    "description": "qr",
-    "main": "./Ridz.js",
-  "engines" : { 
-    "npm" : ">=9.7.2",
-    "node" : ">=20.0.0"
-    },
-    "scripts": {
+  "description": "qr",
+  "main": "./Ridz.js",
+  "engines": {
+    "npm": ">=9.7.2",
+    "node": ">=20.0.0"
+  },
+  "scripts": {
     "start": "node Ridz.js"
   },
   "author": "Ridz Coder",
@@ -16,10 +16,12 @@
     "qrcode": "^1.5.4",
     "awesome-phonenumber": "^7.5.0",
     "pino": "^9.7.0",
-    "phone" : "3.1.62",
+    "phone": "3.1.62",
     "body-parser": "^2.2.0",
     "pastebin-js": "^1.0.6",
     "express": "^5.1.0",
-    "path": "^0.12.7"
-   }
+    "path": "^0.12.7",
+    "axios": "^1.7.2",
+    "zlib": "^1.0.5"
+  }
 }
