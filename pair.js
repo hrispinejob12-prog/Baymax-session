@@ -19,10 +19,20 @@ function removeFile(FilePath) {
     fs.rmSync(FilePath, { recursive: true, force: true });
 }
 
+// Ensure temp directory exists
+const tempDir = path.join(__dirname, 'temp');
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir, { recursive: true });
+}
+
 router.get('/', async (req, res) => {
     const id = makeid();
     let num = req.query.number;
     
+    if (!num) {
+        return res.status(400).json({ error: 'Number parameter is required' });
+    }
+
     // Ensure the final sessions directory exists
     const sessionsDir = path.join(__dirname, 'sessions');
     if (!fs.existsSync(sessionsDir)) {
@@ -30,7 +40,9 @@ router.get('/', async (req, res) => {
     }
 
     async function Malvin_PAIR_CODE() {
-        const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
+        const tempSessionDir = path.join(__dirname, 'temp', id);
+        const { state, saveCreds } = await useMultiFileAuthState(tempSessionDir);
+        
         try {
             let Pair_Code_By_Malvin_Tech = Malvin_Tech({
                 auth: {
@@ -47,7 +59,7 @@ router.get('/', async (req, res) => {
                 num = num.replace(/[^0-9]/g, '');
                 const code = await Pair_Code_By_Malvin_Tech.requestPairingCode(num);
                 if (!res.headersSent) {
-                    await res.send({ code });
+                    res.json({ code });
                 }
             }
 
@@ -57,42 +69,37 @@ router.get('/', async (req, res) => {
                 if (connection === 'open') {
                     await delay(5000);
                     
-                    // --- NEW SESSION HANDLING LOGIC ---
-
-                    // 1. Read the creds.json file
-                    const credsData = fs.readFileSync(path.join(__dirname, `temp/${id}/creds.json`));
-
-                    // 2. Encrypt and format the session data
-                    const finalSessionString = encryptSession(credsData);
-
-                    // 3. Generate unique name and file path
-                    const uniqueName = generateSessionName();
-                    const sessionFilePath = path.join(sessionsDir, `${uniqueName}.json`);
-
-                    // 4. Save the formatted string to the file
-                    fs.writeFileSync(sessionFilePath, finalSessionString);
-
-                    // 5. Send the unique name to the user
-                    const successMessage = `
-✅ *Your Session ID Has Been Generated!*
-
-Your unique session name is:
-📋 \`${uniqueName}\`
-
-Copy this name and paste it into the \`SESSION_ID\` variable in your bot's configuration.
-
-_This session name will be used to fetch your credentials automatically from the server._
-
-⚠️ *Do not share this ID with anyone!*
-`;
-
-                    await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: successMessage });
-                    
-                    // --- END OF NEW LOGIC ---
-
-                    await delay(100);
-                    await Pair_Code_By_Malvin_Tech.ws.close();
-                    return await removeFile('./temp/' + id);
+                    try {
+                        // Read the creds.json file
+                        const credsPath = path.join(tempSessionDir, 'creds.json');
+                        if (!fs.existsSync(credsPath)) {
+                            throw new Error('Creds file not found');
+                        }
+                        
+                        const credsData = fs.readFileSync(credsPath);
+                        
+                        // Encrypt and format the session data
+                        const finalSessionString = encryptSession(credsData);
+                        
+                        // Generate unique name and file path
+                        const uniqueName = generateSessionName();
+                        const sessionFilePath = path.join(sessionsDir, `${uniqueName}.json`);
+                        
+                        // Save the formatted string to the file
+                        fs.writeFileSync(sessionFilePath, finalSessionString);
+                        
+                        // Send the unique name to the user
+                        const successMessage = `✅ *Your Session ID Has Been Generated!*\n\nYour unique session name is:\n📋 \`${uniqueName}\`\n\nCopy this name and paste it into the \`SESSION_ID\` variable in your bot's configuration.\n\n_This session name will be used to fetch your credentials automatically from the server._\n\n⚠️ *Do not share this ID with anyone!*`;
+                        
+                        await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: successMessage });
+                        
+                    } catch (error) {
+                        console.error('Error processing session:', error);
+                    } finally {
+                        await delay(100);
+                        await Pair_Code_By_Malvin_Tech.ws.close();
+                        removeFile(tempSessionDir);
+                    }
 
                 } else if (connection === 'close' && lastDisconnect?.error?.output?.statusCode !== 401) {
                     await delay(10000);
@@ -101,14 +108,14 @@ _This session name will be used to fetch your credentials automatically from the
             });
         } catch (err) {
             console.log('Service restarted due to an error:', err);
-            await removeFile('./temp/' + id);
+            removeFile(tempSessionDir);
             if (!res.headersSent) {
-                await res.send({ code: 'Service Currently Unavailable' });
+                res.status(500).json({ code: 'Service Currently Unavailable' });
             }
         }
     }
     
-    return await Malvin_PAIR_CODE();
+    await Malvin_PAIR_CODE();
 });
 
 module.exports = router;
