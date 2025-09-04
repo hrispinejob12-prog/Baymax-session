@@ -1,10 +1,11 @@
-const PastebinAPI = require('pastebin-js');
-const pastebin = new PastebinAPI('EMWTMkQAVfJa9kM-MRUrxd5Oku1U7pgL');
-const { makeid } = require('./id');
+// pair.js
+const { makeid, generateSessionName } = require('./id');
+const { encryptSession } = require('./session-encrypt');
 const express = require('express');
 const fs = require('fs');
-let router = express.Router();
+const path = require('path');
 const pino = require('pino');
+let router = express.Router();
 const {
     default: Malvin_Tech,
     useMultiFileAuthState,
@@ -22,6 +23,12 @@ router.get('/', async (req, res) => {
     const id = makeid();
     let num = req.query.number;
     
+    // Ensure the final sessions directory exists
+    const sessionsDir = path.join(__dirname, 'sessions');
+    if (!fs.existsSync(sessionsDir)) {
+        fs.mkdirSync(sessionsDir, { recursive: true });
+    }
+
     async function Malvin_PAIR_CODE() {
         const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
         try {
@@ -49,49 +56,51 @@ router.get('/', async (req, res) => {
                 const { connection, lastDisconnect } = s;
                 if (connection === 'open') {
                     await delay(5000);
-                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-                    await delay(800);
-                    let b64data = Buffer.from(data).toString('base64');
-                    let session = await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: 'baymay~' + b64data });
+                    
+                    // --- NEW SESSION HANDLING LOGIC ---
 
-                    let Star_MD_TEXT = `
+                    // 1. Read the creds.json file
+                    const credsData = fs.readFileSync(path.join(__dirname, `temp/${id}/creds.json`));
 
-╭─═━⌬━═─⊹⊱✦⊰⊹─═━⌬━═─ 
-╎   『 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃 』   
-╎  ✦ Tʜᴇ Dᴇᴠᴇʟᴏᴘᴇʀ 03
-╎  ✦  Rɪᴅᴢ Cᴏᴅᴇʀ
-╰╴╴╴╴
+                    // 2. Encrypt and format the session data
+                    const finalSessionString = encryptSession(credsData);
 
-▌   『 🔐 𝐒𝐄𝐋𝐄𝐂𝐓𝐄𝐃 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 』   
-▌  • Session ID:  
-▌  ⛔ [ Please set your SESSION_ID ] 
+                    // 3. Generate unique name and file path
+                    const uniqueName = generateSessionName();
+                    const sessionFilePath = path.join(sessionsDir, `${uniqueName}.json`);
 
-╔═
-╟   『 𝐂𝐎𝐍𝐓𝐀𝐂𝐓 & 𝐒𝐔𝐏𝐏𝐎𝐑𝐓 』  
-╟  🎥 𝐘𝐨𝐮𝐓𝐮𝐛𝐞: youtube.com/@ridz-coder01  
-╟  👑 𝐎𝐰𝐧𝐞𝐫: 263714732501  
-╟  💻 𝐑𝐞𝐩𝐨: github.com/ridz-coder01/BAYMAX-MD 
-╟  📢 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: https://whatsapp.com/channel/0029VaXVc0NFy725FNnYvc32  
-╰  
-✦⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅✦  
-   𝐄𝐍𝐉𝐎𝐘 𝗕𝗔𝗬𝗠𝗔𝗫 𝗠𝗗  
-✦⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅⋆⋅✦  
-______________________________
-★彡[ᴅᴏɴ'ᴛ ғᴏʀɢᴇᴛ ᴛᴏ sᴛᴀʀ ᴛʜᴇ ʀᴇᴘᴏ!]彡★
+                    // 4. Save the formatted string to the file
+                    fs.writeFileSync(sessionFilePath, finalSessionString);
+
+                    // 5. Send the unique name to the user
+                    const successMessage = `
+✅ *Your Session ID Has Been Generated!*
+
+Your unique session name is:
+📋 \`${uniqueName}\`
+
+Copy this name and paste it into the \`SESSION_ID\` variable in your bot's configuration.
+
+_This session name will be used to fetch your credentials automatically from the server._
+
+⚠️ *Do not share this ID with anyone!*
 `;
 
-                    await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: Star_MD_TEXT }, { quoted: session });
+                    await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: successMessage });
+                    
+                    // --- END OF NEW LOGIC ---
 
                     await delay(100);
                     await Pair_Code_By_Malvin_Tech.ws.close();
                     return await removeFile('./temp/' + id);
-                } else if (connection === 'close' && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+
+                } else if (connection === 'close' && lastDisconnect?.error?.output?.statusCode !== 401) {
                     await delay(10000);
                     Malvin_PAIR_CODE();
                 }
             });
         } catch (err) {
-            console.log('Service restarted');
+            console.log('Service restarted due to an error:', err);
             await removeFile('./temp/' + id);
             if (!res.headersSent) {
                 await res.send({ code: 'Service Currently Unavailable' });
