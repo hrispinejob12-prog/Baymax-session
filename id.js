@@ -15,7 +15,7 @@ function makeid(num = 4) {
  */
 function generateSessionName() {
     const randomPart = makeid(5).toLowerCase();
-    return `baymax_${randomPart}`;
+    return `hribot_${randomPart}`;
 }
 
 module.exports = { makeid, generateSessionName };
