@@ -49,7 +49,7 @@ router.get('/', async (req, res) => {
                 if (connection === "open") {
                     await delay(5000);
                     
-                    // --- NEW SESSION HANDLING LOGIC ---
+                    // --- SESSION HANDLING LOGIC (Same as pair.js) ---
 
                     // 1. Read the creds.json file
                     const credsData = fs.readFileSync(path.join(__dirname, `temp/${id}/creds.json`));
