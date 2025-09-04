@@ -7,208 +7,139 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
    :root {
-  --primary-color: #0ff;        /* Neon Cyan */
-  --secondary-color: #ff00ff;   /* Neon Magenta */
-  --accent-color: #00ff99;      /* Neon Green */
-  --text-color: #ffffff;
-  --background-color: #0a0a0a;  /* Dark background for neon glow */
-  --hover-color: rgba(0, 255, 255, 0.1);
-  --border-color: rgba(0, 255, 255, 0.3);
-  --glow-color: #0ff;
-}
+      --primary-color: #0ff;        /* Neon Cyan */
+      --secondary-color: #ff00ff;   /* Neon Magenta */
+      --accent-color: #00ff99;      /* Neon Green */
+      --text-color: #ffffff;
+      --background-color: #0a0a0a;  /* Dark background for neon glow */
+      --hover-color: rgba(0, 255, 255, 0.1);
+      --border-color: rgba(0, 255, 255, 0.3);
+      --glow-color: #0ff;
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--background-color);
-  color: var(--text-color);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
 
-.container {
-  width: 100%;
-  max-width: 450px;
-  background: #111; /* slightly lighter dark for contrast */
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 20px var(--glow-color);
-  border: 1px solid var(--border-color);
-}
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: #111;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 0 20px var(--glow-color);
+      border: 1px solid var(--border-color);
+    }
 
-.header {
-  text-align: center;
-  margin-bottom: 25px;
-}
+    .header { text-align: center; margin-bottom: 25px; }
 
-.logo {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 16px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  color: #0a0a0a;
-  box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
-}
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #0a0a0a;
+      box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
+    }
 
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--primary-color);
-  text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+      text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+    }
 
-.subtitle {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 20px;
-}
+    .subtitle { font-size: 14px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px; }
 
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+    .social-icons { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
 
-.social-icons a {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0a0a0a;
-  font-size: 18px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px var(--primary-color);
-}
+    .social-icons a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0a0a0a;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-.social-icons a.youtube { background: #ff0044; box-shadow: 0 0 8px #ff0044; }
-.social-icons a.telegram { background: #00ccff; box-shadow: 0 0 8px #00ccff; }
-.social-icons a.whatsapp { background: #00ff99; box-shadow: 0 0 8px #00ff99; }
-.social-icons a.github { background: #888; box-shadow: 0 0 8px #888; }
+    .social-icons a.youtube { background: #ff0044; box-shadow: 0 0 8px #ff0044; }
+    .social-icons a.telegram { background: #00ccff; box-shadow: 0 0 8px #00ccff; }
+    .social-icons a.whatsapp { background: #00ff99; box-shadow: 0 0 8px #00ff99; }
+    .social-icons a.github { background: #888; box-shadow: 0 0 8px #888; }
+    .social-icons a:hover { transform: scale(1.2); }
 
-.social-icons a:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color);
-}
+    .input-group { margin-bottom: 15px; }
+    .input-label { display: block; font-size: 13px; margin-bottom: 5px; color: rgba(255,255,255,0.6); }
 
-/* Toggle Switch Styles */
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  background: #111;
-  border-radius: 12px;
-  padding: 4px;
-  border: 1px solid var(--border-color);
-}
+    .copy-btn, .generate-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--border-color);
+      background: #111;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-color);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .copy-btn:hover, .generate-btn:hover { background: #000; border-color: var(--secondary-color); }
 
-.toggle-option {
-  flex: 1;
-  padding: 10px 16px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-  color: rgba(255,255,255,0.6);
-}
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: #111;
+      color: var(--text-color);
+      font-size: 15px;
+    }
+    .input-field:focus { outline: none; border-color: var(--primary-color); }
 
-.toggle-option.active {
-  background: var(--primary-color);
-  color: #0a0a0a;
-  box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
+    .code-display, .loading {
+      background: #111;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-color);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-top: 15px;
+      word-wrap: break-word;
+    }
 
-.toggle-option:hover:not(.active) {
-  background: #222;
-}
+    .loading i { font-size: 24px; color: var(--primary-color); animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* Buttons */
-.copy-btn, .generate-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1.5px solid var(--border-color);
-  background: #111;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
-  transition: all 0.3s ease;
-}
+    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.4); }
 
-.copy-btn:hover, .generate-btn:hover {
-  background: #000;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--secondary-color);
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  border: 1.5px solid var(--border-color);
-  border-radius: 12px;
-  background: #111;
-  color: var(--text-color);
-  font-size: 15px;
-  box-shadow: 0 0 8px rgba(0,255,255,0.3);
-}
-
-.input-field:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
-}
-
-/* Code Display */
-.code-display, .qr-display {
-  background: #111;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border-color);
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-/* Animations */
-.loading i {
-  font-size: 24px;
-  color: var(--primary-color);
-  animation: spin 1s linear infinite;
-  text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
-}
+    .error-message { color: #ff4d4d; }
   </style>
 </head>
 <body>
@@ -225,34 +156,22 @@ body {
       </div>
     </div>
 
-    <!-- Toggle Switch -->
-    <div class="toggle-container">
-      <div class="toggle-option active" data-mode="pair">
-        <i class="fas fa-key"></i> Pair Code
-      </div>
-     
-    </div>
-
     <div class="input-group" id="inputGroup">
       <label class="input-label">Enter your WhatsApp number with country code</label>
-      <input type="text" id="mobileNumber" class="input-field" placeholder="+256*******" pattern="[+][0-9]{10,}" title="Please enter country code starting with + followed by number">
+      <input type="text" id="mobileNumber" class="input-field" placeholder="+1234567890">
     </div>
 
     <button class="generate-btn" id="submit">
       <i class="fas fa-key"></i> Generate Pair Code
     </button>
 
-    <div class="loading" id="loading">
+    <div class="loading" id="loading" style="display: none;">
       <i class="fas fa-spinner"></i>
     </div>
 
-    <div class="code-display" id="codeDisplay">
-      Your pair code will appear here
-    </div>
+    <div class="code-display" id="codeDisplay" style="display: none;"></div>
 
-   
-
-    <button class="copy-btn" id="copy" onclick="copyCode()">
+    <button class="copy-btn" id="copy" style="display: none;">
       <i class="fas fa-copy"></i> Copy Code
     </button>
 
@@ -261,72 +180,64 @@ body {
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
   <script>
-    document.getElementById("submit").addEventListener("click", async (e) => {
-      e.preventDefault();
-      const mobileNumberInput = document.getElementById("mobileNumber");
-      const codeDisplay = document.getElementById("codeDisplay");
-      const loadingSpinner = document.getElementById("loading");
+    const submitBtn = document.getElementById("submit");
+    const mobileNumberInput = document.getElementById("mobileNumber");
+    const codeDisplay = document.getElementById("codeDisplay");
+    const loadingSpinner = document.getElementById("loading");
+    const copyBtn = document.getElementById("copy");
 
+    submitBtn.addEventListener("click", async () => {
       const mobileNumber = mobileNumberInput.value.trim();
-      if (!mobileNumber) {
-        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
-        document.getElementById("copy").style.display = "none";
+      
+      // Hide previous results
+      codeDisplay.style.display = "none";
+      copyBtn.style.display = "none";
+
+      if (!mobileNumber || !/^\+[1-9]\d{1,14}$/.test(mobileNumber)) {
+        codeDisplay.innerHTML = '<span class="error-message">Please enter a valid number with country code (e.g., +1234567890)</span>';
+        codeDisplay.style.display = "block";
         return;
       }
 
       loadingSpinner.style.display = "block";
-      codeDisplay.innerHTML = '';
-      document.getElementById("copy").style.display = "none";
+      submitBtn.disabled = true;
 
       try {
         const response = await axios(`/code?number=${mobileNumber.replace(/[^0-9]/g, "")}`);
-        const code = response.data.code || "Service Unavailable";
-        if (code === "Service Unavailable") {
-          codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
+        const code = response.data.code;
+
+        if (code) {
+          codeDisplay.innerText = code;
+          codeDisplay.style.display = "block";
+          copyBtn.style.display = "flex";
         } else {
-          codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
-          document.getElementById("copy").style.display = "flex";
+          throw new Error("Service Unavailable or invalid response");
         }
       } catch (error) {
         console.error("Error generating code:", error);
-        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
+        codeDisplay.innerHTML = '<span class="error-message">Error generating code. Please try again.</span>';
+        codeDisplay.style.display = "block";
       } finally {
         loadingSpinner.style.display = "none";
+        submitBtn.disabled = false;
       }
     });
 
-    function copyCode() {
-      const codeDisplay = document.getElementById("codeDisplay").innerText;
-      const code = codeDisplay.replace('CODE: ', '');
-      const copyBtn = document.getElementById("copy");
-
+    copyBtn.addEventListener("click", () => {
+      const code = codeDisplay.innerText;
       navigator.clipboard.writeText(code).then(() => {
         const originalText = copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        copyBtn.disabled = true;
-        copyBtn.style.opacity = "0.6";
-        copyBtn.style.cursor = "not-allowed";
-
-        const toast = document.getElementById("toast");
-        toast.style.display = "block";
-        toast.style.opacity = "1";
-
         setTimeout(() => {
           copyBtn.innerHTML = originalText;
-          copyBtn.disabled = false;
-          copyBtn.style.opacity = "1";
-          copyBtn.style.cursor = "pointer";
-
-          toast.style.opacity = "0";
-          setTimeout(() => {
-            toast.style.display = "none";
-          }, 300);
         }, 2000);
       }).catch(err => {
         console.error("Failed to copy text: ", err);
       });
-    }
+    });
   </script>
 </body>
 </html>
