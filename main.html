@@ -1,332 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF--8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Baymax MD - WhatsApp Linker</title>
+  <title>BWM XMD - WhatsApp Linker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <style>
    :root {
-  --primary-color: #0ff;        /* Neon Cyan */
-  --secondary-color: #ff00ff;   /* Neon Magenta */
-  --accent-color: #00ff99;      /* Neon Green */
-  --text-color: #ffffff;
-  --background-color: #0a0a0a;  /* Dark background for neon glow */
-  --hover-color: rgba(0, 255, 255, 0.1);
-  --border-color: rgba(0, 255, 255, 0.3);
-  --glow-color: #0ff;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--background-color);
-  color: var(--text-color);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-}
-
-.container {
-  width: 100%;
-  max-width: 450px;
-  background: #111; /* slightly lighter dark for contrast */
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 20px var(--glow-color);
-  border: 1px solid var(--border-color);
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.logo {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 16px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  color: #0a0a0a;
-  box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--primary-color);
-  text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-.subtitle {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 20px;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.social-icons a {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0a0a0a;
-  font-size: 18px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px var(--primary-color);
-}
-
-.social-icons a.youtube { background: #ff0044; box-shadow: 0 0 8px #ff0044; }
-.social-icons a.telegram { background: #00ccff; box-shadow: 0 0 8px #00ccff; }
-.social-icons a.whatsapp { background: #00ff99; box-shadow: 0 0 8px #00ff99; }
-.social-icons a.github { background: #888; box-shadow: 0 0 8px #888; }
-
-.social-icons a:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color);
-}
-
-/* Toggle Switch Styles */
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  background: #111;
-  border-radius: 12px;
-  padding: 4px;
-  border: 1px solid var(--border-color);
-}
-
-.toggle-option {
-  flex: 1;
-  padding: 10px 16px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-  color: rgba(255,255,255,0.6);
-}
-
-.toggle-option.active {
-  background: var(--primary-color);
-  color: #0a0a0a;
-  box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-.toggle-option:hover:not(.active) {
-  background: #222;
-}
-
-/* Buttons */
-.copy-btn, .generate-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1.5px solid var(--border-color);
-  background: #111;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
-  transition: all 0.3s ease;
-}
-
-.copy-btn:hover, .generate-btn:hover {
-  background: #000;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--secondary-color);
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  border: 1.5px solid var(--border-color);
-  border-radius: 12px;
-  background: #111;
-  color: var(--text-color);
-  font-size: 15px;
-  box-shadow: 0 0 8px rgba(0,255,255,0.3);
-}
-
-.input-field:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
-}
-
-/* Code Display */
-.code-display, .qr-display {
-  background: #111;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border-color);
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-/* Animations */
-.loading i {
-  font-size: 24px;
-  color: var(--primary-color);
-  animation: spin 1s linear infinite;
-  text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
-}
+      --primary-color: #0ff;        /* Neon Cyan */
+      --secondary-color: #ff00ff;   /* Neon Magenta */
+      --accent-color: #00ff99;      /* Neon Green */
+      --text-color: #ffffff;
+      --background-color: #0a0a0a;  /* Dark background for neon glow */
+      --hover-color: rgba(0, 255, 255, 0.1);
+      --border-color: rgba(0, 255, 255, 0.3);
+      --glow-color: #0ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: #111;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 0 20px var(--glow-color);
+      border: 1px solid var(--border-color);
+    }
+    .header { text-align: center; margin-bottom: 25px; }
+    .logo {
+      width: 70px; height: 70px; margin: 0 auto 16px;
+      background: var(--primary-color);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #0a0a0a;
+      box-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
+    }
+    .title {
+      font-size: 24px; font-weight: 700; margin-bottom: 8px; color: var(--primary-color);
+      text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+    }
+    .subtitle { font-size: 14px; color: rgba(255, 255, 255, 0.6); }
+    .toggle-container {
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      background: #111; border-radius: 12px; padding: 4px;
+      border: 1px solid var(--border-color);
+    }
+    .toggle-option {
+      flex: 1; padding: 10px 16px; text-align: center; cursor: pointer;
+      border-radius: 8px; font-size: 14px; font-weight: 500;
+      transition: all 0.3s ease; position: relative;
+      color: rgba(255,255,255,0.6);
+    }
+    .toggle-option.active {
+      background: var(--primary-color); color: #0a0a0a;
+      box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+    }
+    .toggle-option:hover:not(.active) { background: #222; }
+    .input-group { margin-bottom: 16px; }
+    .input-field {
+      width: 100%; padding: 12px; border: 1.5px solid var(--border-color);
+      border-radius: 12px; background: #111; color: var(--text-color); font-size: 15px;
+      box-shadow: 0 0 8px rgba(0,255,255,0.3);
+    }
+    .input-field:focus {
+      outline: none; border-color: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
+    }
+    .generate-btn {
+      width: 100%; padding: 12px; border-radius: 12px; font-size: 15px;
+      font-weight: 600; cursor: pointer; border: 1.5px solid var(--border-color);
+      background: #111; color: var(--primary-color); text-shadow: 0 0 5px var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-color); transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+    .generate-btn:hover {
+      background: #000; border-color: var(--secondary-color);
+      box-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--secondary-color);
+    }
+    .result-area { margin-top: 16px; text-align: center; }
+    .loading { display: none; }
+    .loading i {
+      font-size: 24px; color: var(--primary-color); animation: spin 1s linear infinite;
+      text-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .code-display, .qr-display {
+      background: #111; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border-color);
+      font-size: 16px; font-weight: 600; color: var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-color), 0 0 16px var(--secondary-color);
+      word-wrap: break-word; display: none;
+    }
+    .qr-display img {
+        width: 100%; max-width: 250px; margin: 10px auto; border-radius: 8px;
+    }
+    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.4); }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div class="logo"><i class="fas fa-robot"></i></div>
-      <h1 class="title">Baymax MD</h1>
+      <h1 class="title">BWM XMD</h1>
       <p class="subtitle">Link your WhatsApp device</p>
-      <div class="social-icons">
-        <a href="https://www.youtube.com/@ridz-coder01?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-        <a href="https://t.me/ridz-coder01" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-        <a href="https://whatsapp.com/channel/0029VaXVc0NFy725FNnYvc32" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://github.com/ridz-coder01/BAYMAX-MD" target="_blank" class="github"><i class="fab fa-github"></i></a>
-      </div>
     </div>
 
-    <!-- Toggle Switch -->
     <div class="toggle-container">
       <div class="toggle-option active" data-mode="pair">
         <i class="fas fa-key"></i> Pair Code
       </div>
-     
+      <div class="toggle-option" data-mode="qr">
+        <i class="fas fa-qrcode"></i> QR Code
+      </div>
     </div>
 
     <div class="input-group" id="inputGroup">
-      <label class="input-label">Enter your WhatsApp number with country code</label>
-      <input type="text" id="mobileNumber" class="input-field" placeholder="+256*******" pattern="[+][0-9]{10,}" title="Please enter country code starting with + followed by number">
+      <input type="text" id="mobileNumber" class="input-field" placeholder="+254*******">
     </div>
 
     <button class="generate-btn" id="submit">
       <i class="fas fa-key"></i> Generate Pair Code
     </button>
+    
+    <div class="result-area">
+        <div class="loading" id="loading">
+          <i class="fas fa-spinner"></i>
+        </div>
 
-    <div class="loading" id="loading">
-      <i class="fas fa-spinner"></i>
+        <div class="code-display" id="codeDisplay"></div>
+        <div class="qr-display" id="qrDisplay"></div>
     </div>
 
-    <div class="code-display" id="codeDisplay">
-      Your pair code will appear here
-    </div>
-
-   
-
-    <button class="copy-btn" id="copy" onclick="copyCode()">
-      <i class="fas fa-copy"></i> Copy Code
-    </button>
 
     <div class="footer">
-      <p>© 2025 Ridz Coder | BAYMAX MD</p>
+      <p>© 2025 BWM XMD</p>
     </div>
   </div>
 
   <script>
-    document.getElementById("submit").addEventListener("click", async (e) => {
-      e.preventDefault();
-      const mobileNumberInput = document.getElementById("mobileNumber");
-      const codeDisplay = document.getElementById("codeDisplay");
-      const loadingSpinner = document.getElementById("loading");
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggles = document.querySelectorAll(".toggle-option");
+        const submitBtn = document.getElementById("submit");
+        const inputGroup = document.getElementById("inputGroup");
+        const loadingSpinner = document.getElementById("loading");
+        const codeDisplay = document.getElementById("codeDisplay");
+        const qrDisplay = document.getElementById("qrDisplay");
+        const mobileNumberInput = document.getElementById("mobileNumber");
 
-      const mobileNumber = mobileNumberInput.value.trim();
-      if (!mobileNumber) {
-        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
-        document.getElementById("copy").style.display = "none";
-        return;
-      }
+        let currentMode = 'pair';
 
-      loadingSpinner.style.display = "block";
-      codeDisplay.innerHTML = '';
-      document.getElementById("copy").style.display = "none";
+        toggles.forEach(toggle => {
+            toggle.addEventListener("click", () => {
+                currentMode = toggle.dataset.mode;
+                
+                toggles.forEach(t => t.classList.remove("active"));
+                toggle.classList.add("active");
 
-      try {
-        const response = await axios(`/code?number=${mobileNumber.replace(/[^0-9]/g, "")}`);
-        const code = response.data.code || "Service Unavailable";
-        if (code === "Service Unavailable") {
-          codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
-        } else {
-          codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
-          document.getElementById("copy").style.display = "flex";
-        }
-      } catch (error) {
-        console.error("Error generating code:", error);
-        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
-      } finally {
-        loadingSpinner.style.display = "none";
-      }
+                // Reset displays
+                codeDisplay.style.display = 'none';
+                qrDisplay.style.display = 'none';
+                
+                if (currentMode === 'pair') {
+                    inputGroup.style.display = 'block';
+                    submitBtn.innerHTML = '<i class="fas fa-key"></i> Generate Pair Code';
+                } else {
+                    inputGroup.style.display = 'none';
+                    submitBtn.innerHTML = '<i class="fas fa-qrcode"></i> Generate QR Code';
+                }
+            });
+        });
+
+        submitBtn.addEventListener("click", async () => {
+            loadingSpinner.style.display = 'block';
+            codeDisplay.style.display = 'none';
+            codeDisplay.innerHTML = '';
+            qrDisplay.style.display = 'none';
+            qrDisplay.innerHTML = '';
+
+            if (currentMode === 'pair') {
+                const mobileNumber = mobileNumberInput.value.trim().replace(/[^0-9]/g, "");
+                if (!mobileNumber) {
+                    codeDisplay.innerHTML = 'Please enter your WhatsApp number';
+                    codeDisplay.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                    return;
+                }
+
+                try {
+                    const response = await axios(`/code?number=${mobileNumber}`);
+                    const code = response.data.code;
+                    if (code) {
+                        codeDisplay.innerHTML = `Your Pair Code: <strong>${code}</strong>`;
+                    } else {
+                        codeDisplay.innerHTML = 'Service Unavailable. Please try again later.';
+                    }
+                } catch (error) {
+                    console.error("Error generating code:", error);
+                    codeDisplay.innerHTML = 'Error generating code. Please try again.';
+                } finally {
+                    loadingSpinner.style.display = 'none';
+                    codeDisplay.style.display = 'block';
+                }
+
+            } else { // QR Mode
+                const img = document.createElement('img');
+                const timestamp = new Date().getTime();
+                img.src = `/qr?t=${timestamp}`; // Add timestamp to prevent caching
+
+                img.onload = () => {
+                    loadingSpinner.style.display = 'none';
+                    qrDisplay.style.display = 'block';
+                };
+                img.onerror = () => {
+                    loadingSpinner.style.display = 'none';
+                    qrDisplay.innerHTML = 'Error generating QR Code. Please try again.';
+                    qrDisplay.style.display = 'block';
+                };
+                
+                qrDisplay.appendChild(img);
+            }
+        });
     });
-
-    function copyCode() {
-      const codeDisplay = document.getElementById("codeDisplay").innerText;
-      const code = codeDisplay.replace('CODE: ', '');
-      const copyBtn = document.getElementById("copy");
-
-      navigator.clipboard.writeText(code).then(() => {
-        const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        copyBtn.disabled = true;
-        copyBtn.style.opacity = "0.6";
-        copyBtn.style.cursor = "not-allowed";
-
-        const toast = document.getElementById("toast");
-        toast.style.display = "block";
-        toast.style.opacity = "1";
-
-        setTimeout(() => {
-          copyBtn.innerHTML = originalText;
-          copyBtn.disabled = false;
-          copyBtn.style.opacity = "1";
-          copyBtn.style.cursor = "pointer";
-
-          toast.style.opacity = "0";
-          setTimeout(() => {
-            toast.style.display = "none";
-          }, 300);
-        }, 2000);
-      }).catch(err => {
-        console.error("Failed to copy text: ", err);
-      });
-    }
   </script>
 </body>
 </html>
