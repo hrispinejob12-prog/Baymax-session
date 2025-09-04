@@ -14,7 +14,7 @@ function encryptSession(sessionData) {
   const base64Data = compressedData.toString('base64');
   
   // Step 3: Prepend the header and return the final string
-  return `BAYMAX-MD;;;${base64Data}`;
+  return `HRIBOT-MD;;;${base64Data}`;
 }
 
 module.exports = { encryptSession };
