@@ -196,7 +196,7 @@
       codeDisplay.style.display = "none";
       copyBtn.style.display = "none";
 
-      if (!mobileNumber || !/^\+[1-9]\d{1,14}$/.test(mobileNumber)) {
+      if (!mobileNumber || !/^\[1-9]\d{1,14}$/.test(mobileNumber)) {
         codeDisplay.innerHTML = '<span class="error-message">Please enter a valid number with country code (e.g., +1234567890)</span>';
         codeDisplay.style.display = "block";
         return;
