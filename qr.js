@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
                 }
 
                 if (connection === "open") {
-                    await delay(5000);
+                    await delay(10000);
                     
                     // --- SESSION HANDLING LOGIC (Same as pair.js) ---
 
@@ -65,17 +65,7 @@ router.get('/', async (req, res) => {
                     fs.writeFileSync(sessionFilePath, finalSessionString);
 
                     // 5. Send the unique name to the user
-                    const successMessage = `
-✅ *Your Session ID Has Been Generated!*
-
-Your unique session name is:
-📋 \`${uniqueName}\`
-
-Copy this name and paste it into the \`SESSION_ID\` variable in your bot's configuration.
-
-_This session name will be used to fetch your credentials automatically from the server._
-
-⚠️ *Do not share this ID with anyone!*
+                    const successMessage = `${uniqueName}
 `;
 
                     await Qr_Code_By_Maher_Zubair.sendMessage(Qr_Code_By_Maher_Zubair.user.id, { text: successMessage });
