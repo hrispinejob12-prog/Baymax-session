@@ -47,25 +47,25 @@ router.get('/', async (req, res) => {
                 }
 
                 if (connection === "open") {
-                    await delay(5000);
+                    // Increased delay to 10 seconds for reliability
+                    await delay(10000);
                     
-                    // --- SESSION HANDLING LOGIC (Same as pair.js) ---
+                    try {
+                        // 1. Read the creds.json file
+                        const credsData = fs.readFileSync(path.join(__dirname, `temp/${id}/creds.json`));
 
-                    // 1. Read the creds.json file
-                    const credsData = fs.readFileSync(path.join(__dirname, `temp/${id}/creds.json`));
+                        // 2. Encrypt and format the session data
+                        const finalSessionString = encryptSession(credsData);
 
-                    // 2. Encrypt and format the session data
-                    const finalSessionString = encryptSession(credsData);
+                        // 3. Generate unique name and file path
+                        const uniqueName = generateSessionName();
+                        const sessionFilePath = path.join(sessionsDir, `${uniqueName}.json`);
 
-                    // 3. Generate unique name and file path
-                    const uniqueName = generateSessionName();
-                    const sessionFilePath = path.join(sessionsDir, `${uniqueName}.json`);
+                        // 4. Save the formatted string to the file
+                        fs.writeFileSync(sessionFilePath, finalSessionString);
 
-                    // 4. Save the formatted string to the file
-                    fs.writeFileSync(sessionFilePath, finalSessionString);
-
-                    // 5. Send the unique name to the user
-                    const successMessage = `
+                        // 5. Send the unique name to the user
+                        const successMessage = `
 ✅ *Your Session ID Has Been Generated!*
 
 Your unique session name is:
@@ -78,13 +78,15 @@ _This session name will be used to fetch your credentials automatically from the
 ⚠️ *Do not share this ID with anyone!*
 `;
 
-                    await Qr_Code_By_Maher_Zubair.sendMessage(Qr_Code_By_Maher_Zubair.user.id, { text: successMessage });
+                        await Qr_Code_By_Maher_Zubair.sendMessage(Qr_Code_By_Maher_Zubair.user.id, { text: successMessage });
                     
-                    // --- END OF NEW LOGIC ---
-
-                    await delay(100);
-                    await Qr_Code_By_Maher_Zubair.ws.close();
-                    return await removeFile("temp/" + id);
+                    } catch (error) {
+                        console.error('Error processing session:', error);
+                    } finally {
+                        await delay(100);
+                        await Qr_Code_By_Maher_Zubair.ws.close();
+                        return await removeFile("temp/" + id);
+                    }
 
                 } else if (connection === "close" && lastDisconnect?.error?.output?.statusCode !== 401) {
                     await delay(10000);
