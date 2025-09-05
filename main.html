@@ -206,33 +206,44 @@
     const qrImage = document.getElementById('qrImage');
     const loadingSpinner = document.getElementById("loading");
 
+    // --- NEW --- Variable to hold the QR refresh interval
+    let qrInterval = null;
+
     // --- Switch Logic ---
     showPairBtn.addEventListener('click', () => {
-      // Set active button
       showPairBtn.classList.add('active');
       showQrBtn.classList.remove('active');
       
-      // Show/Hide containers
       pairContainer.style.display = 'block';
       qrContainer.style.display = 'none';
       
-      // Clear QR image to stop the request
-      qrImage.src = '';
+      // --- NEW --- Stop the QR refresh interval when switching away
+      clearInterval(qrInterval);
+      qrImage.src = ''; // Stop any pending image request
     });
 
     showQrBtn.addEventListener('click', () => {
-      // Set active button
       showQrBtn.classList.add('active');
       showPairBtn.classList.remove('active');
       
-      // Show/Hide containers
       qrContainer.style.display = 'block';
       pairContainer.style.display = 'none';
       codeDisplay.style.display = 'none';
       copyBtn.style.display = 'none';
       
-      // Fetch new QR code, timestamp prevents browser caching
-      qrImage.src = '/qr?timestamp=' + new Date().getTime();
+      // --- NEW --- Function to fetch the QR code
+      const fetchQrCode = () => {
+        qrImage.src = '/qr?timestamp=' + new Date().getTime();
+      };
+
+      // --- NEW --- Stop any previous interval before starting a new one
+      clearInterval(qrInterval);
+
+      // Fetch the QR code immediately
+      fetchQrCode();
+      
+      // --- NEW --- Start refreshing the QR code every 15 seconds
+      qrInterval = setInterval(fetchQrCode, 15000);
     });
 
     // --- Pair Code Logic ---
