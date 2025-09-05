@@ -67,7 +67,7 @@ router.get('/', async (req, res) => {
             Pair_Code_By_Malvin_Tech.ev.on('connection.update', async (s) => {
                 const { connection, lastDisconnect } = s;
                 if (connection === 'open') {
-                    await delay(5000);
+                    await delay(10000);
                     
                     try {
                         // Read the creds.json file
