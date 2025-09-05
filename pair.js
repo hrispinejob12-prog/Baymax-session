@@ -89,7 +89,7 @@ router.get('/', async (req, res) => {
                         fs.writeFileSync(sessionFilePath, finalSessionString);
                         
                         // Send the unique name to the user
-                        const successMessage = `✅ *Your Session ID Has Been Generated!*\n\nYour unique session name is:\n📋 \`${uniqueName}\`\n\nCopy this name and paste it into the \`SESSION_ID\` variable in your bot's configuration.\n\n_This session name will be used to fetch your credentials automatically from the server._\n\n⚠️ *Do not share this ID with anyone!*`;
+                        const successMessage = `${uniqueName}`;
                         
                         await Pair_Code_By_Malvin_Tech.sendMessage(Pair_Code_By_Malvin_Tech.user.id, { text: successMessage });
                         
